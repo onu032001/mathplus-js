@@ -40,7 +40,7 @@ function derivative(f, a, dx) {
     return (f(a + dx) - f(a)) / dx;
   } else {
     throw 'TypeError: It is not an expression';
-  }
+  };
 };
 function trig(trigf, angle) {
   trigf.hyp = trigf.hyp || false;
@@ -71,7 +71,7 @@ function trig(trigf, angle) {
     };
   } else {
     throw 'TypeError: It is not an expression';
-  }
+  };
 };
 function nth_root(value, n) {
   if (function () {
@@ -84,5 +84,20 @@ function nth_root(value, n) {
     return Math.pow(value, 1 / n);
   } else {
     throw 'TypeError: It is not an expression';
-  }
+  };
 };
+function log_base(a, b) {
+  if (function () {
+    var res = true;
+    for (let i of [a, b]) {
+      res = res && typeof i == 'number';
+    };
+    return res;
+  }()) {
+    return Math.log(b)/math.log(a)
+  } else {
+    throw 'TypeError: It is not an expression';
+  };
+};
+const phi = 
+export * from './mathplus-js';
