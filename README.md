@@ -1,2 +1,4 @@
 # mathplus-js
-math+
+*math+*
+
+**don't use**: it's terrible. (It will approximate it)
