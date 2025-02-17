@@ -14,3 +14,5 @@ This is a **JS repository** for **additional math functions and constants**.
 |`phi`|This constant returns the golden ratio.|-|
 
 **Errors:** If you don't type the expression correctly.
+
+~~readme is uhh~~
