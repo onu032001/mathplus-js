@@ -99,5 +99,5 @@ function log_base(a, b) {
     throw 'TypeError: It is not an expression';
   };
 };
-const phi = 
+const phi = (1 + Math.sqrt(5)) / 2
 export * from './mathplus-js';
