@@ -15,7 +15,7 @@ function integral(f, a, b, n) {
   }()) {
     n = n || 500;
     var value = 0;
-    for (let k = 0; k <= n, k += 1) {
+    for (let k = 0; k <= n; k += 1) {
       value += f(a + (b - a) / n * k) * ((b - a) / n);
     };
     return value;
@@ -100,4 +100,4 @@ function log_base(a, b) {
   };
 };
 const phi = (1 + Math.sqrt(5)) / 2
-export * from './mathplus-js';
+export { integral as "int", derivative as "diff", trig, nth_root, log_base as "logab" };
