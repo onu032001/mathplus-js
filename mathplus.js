@@ -99,5 +99,5 @@ function log_base(a, b) {
     throw 'TypeError: It is not an expression';
   };
 };
-const phi = (1 + Math.sqrt(5)) / 2
+const phi = (1 + Math.sqrt(5)) / 2;
 export { integral as "int", derivative as "diff", trig, nth_root, log_base as "logab" };
