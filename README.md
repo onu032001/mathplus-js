@@ -15,4 +15,4 @@ This is a **JS repository** for **additional math functions and constants**.
 
 **Errors:** If you don't type the expression correctly.
 
-~~readme is uhh~~
+~~readme is uhh and that site is not working tho~~
