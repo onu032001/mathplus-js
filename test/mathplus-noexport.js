@@ -138,7 +138,7 @@ function log_base(a_log_base, b_log_base) {
     };
     return res_log_base;
   }()) {
-    return Math.log(b_log_base)/math.log(a_log_base)
+    return Math.log(b_log_base)/Math.log(a_log_base)
   } else {
     throw 'TypeError: It is not an expression';
   };
