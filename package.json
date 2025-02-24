@@ -2,6 +2,17 @@
   "name": "mathplus-js",
   "version": "0.0.1",
   "description": "math+ in JS.",
-  "main": "README.md",
+  "main": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onu032001/mathplus-js.git"
+  },
+  "author": "onu032001",
+  "license": "",
+  "bugs": {},
+  "homepage": "https://onu032001.github.io/mathplus-js",
+  "dependencies": {},
+  "devDependencies": {},
   "type": "module"
 }
