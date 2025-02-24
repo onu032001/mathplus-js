@@ -1,4 +1,4 @@
-# mathplus-js
+# mathplus-js (sorry for update)
 
 This is a **JS repository** for **additional math functions and constants**.
 
@@ -16,4 +16,4 @@ This is a **JS repository** for **additional math functions and constants**.
 
 **Errors:** If you don't type the expression correctly.
 
-~~readme is uhh and that site is not working tho~~
+~~readme is uhh~~
