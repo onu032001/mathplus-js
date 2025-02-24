@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Code Compiler</title>
+		<script src="https://codemirror.net/codemirror.js"></script>
+	</head>
+	<body>
+		<h1>Code Compiler</h1>
+		<span id="code"></span>
+		<button onclick="act()">go go go</button>
+		<p id="result"></p>
+		<script>
+			const {EditorState, Text} = CM["@codemirror/state"];
+			const {EditorView, basicSetup} = CM["codemirror"];
+			const {javascript} = CM["@codemirror/lang-javascript"];
+			
+			let editState = EditorState.create({
+			  extensions: [basicSetup, javascript()],
+			})
+			
+			var editor = new EditorView({
+			  state: editState,
+			  parent: document.querySelector('#code')
+			});
+			
+			function act() {
+				const input = editor.state.doc.toString();
+				const resultp = document.querySelector('#result');
+				try {
+					resultp.textContent = eval(input);
+				} catch (e) {
+					resultp.innerHTML = '<img style="width:100%;" src="/*https://playentry.org/uploads/thumb/67a8/67a8a3c0d78abe99420525f0.png?c=2025-02-09T12:47:45.514Z*/0"/><br/>' + e;
+				};
+			};
+		</script>
+	</body>
+</html>
