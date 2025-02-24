@@ -16,4 +16,4 @@ This is a **JS repository** for **additional math functions and constants**.
 
 **Errors:** If you don't type the expression correctly.
 
-~~readme is uhh~~
+~~readme is uhh, and something wrong with this site. please don't fork till i fix this~~
