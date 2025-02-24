@@ -1,3 +1,7 @@
 {
+  "name": "mathplus-js",
+  "version": "0.0.1",
+  "description": "math+ in JS.",
+  "main": "README.md",
   "type": "module"
 }
