@@ -14,7 +14,7 @@ function integral(f_int, a_int, b_int, n_int) {
     return res_int;
   }()) {
     var value_int = 0;
-    for (let k_int = 0; k_int <= n; k_int += 1) {
+    for (let k_int = 0; k_int <= n_int; k_int += 1) {
       value_int += f_int(a_int + (b_int - a_int) / n_int * k_int) * ((b_int - a_int) / n_int);
     };
     return value_int;
