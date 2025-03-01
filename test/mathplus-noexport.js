@@ -144,3 +144,52 @@ function log_base(a_log_base, b_log_base) {
   };
 };
 const phi = (1 + Math.sqrt(5)) / 2;
+function solve(lhs_solve, rhs_solve, x_solve, n_solve, dx_solve) {
+  n_solve = n_solve || 500;
+  x_solve = x_solve || 0.5;
+  dx_solve = dx_solve || 9e-8;
+  if (function () {
+    var result_solve = true;
+    const judgeObject_solve = [
+      {"value": lhs_solve, "needed": "function"},
+      {"value": rhs_solve, "needed": "function"},
+      {"value": x_solve, "needed": "number"},
+      {"value": n_solve, "needed": "number"},
+      {"value": dx_solve, "needed": "number"}
+    ];
+    for (index_solve of judgeObject_solve) {
+      result_solve = result_solve && typeof (index_solve.value) == index_solve.needed;
+    };
+    return result_solve;
+  }()) {
+    for (let k_solve = 0; k_solve < n_solve; k_solve++) {
+      x_solve -= (lhs_solve(x_solve) - rhs_solve(x_solve)) / (((lhs_solve(x_solve + dx_solve) - lhs_solve(x_solve)) - (rhs_solve(x_solve + dx_solve) - rhs_solve(x_solve))) / dx_solve);
+    };
+    return x_solve;
+  } else {
+    throw new TypeError('It is not an expression');
+  };
+};
+function limit(f_limit, x_limit, dx_limit) {
+  dx_limit = dx_limit || 9e-8;
+  if (function () {
+    var result_limit = true;
+    const judgeObject_limit = [
+      {"value": f_limit, "needed": "function"},
+      {"value": x_limit, "needed": "number"},
+      {"value": dx_limit, "needed": "number"}
+    ];
+    for (index_limit of judgeObject_limit) {
+      result_limit = result_limit && typeof (index_limit.value) == index_limit.needed;
+    };
+    return result_limit;
+  }()) {
+    var limresult_limit = f_limit(x_limit);
+    if (isNaN(limresult_limit) || limresult_limit == Infinity || limresult_limit == -Infinity) {
+      limresult_limit = (f_limit(x_limit + dx_limit) + f_limit(x_limit - dx_limit)) / 2;
+    }
+    return limresult_limit;
+  } else {
+    throw new TypeError('It is not an expression');
+  };
+};
