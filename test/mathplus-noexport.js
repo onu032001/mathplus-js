@@ -1,4 +1,4 @@
-class MathPlus {
+var MathPlus = class MathPlus {
   integral(f_int, a_int, b_int, n_int) {
     n_int = n_int || 500;
     if (function () {
