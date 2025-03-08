@@ -95,7 +95,7 @@ class MathPlus {
         {'value': angle_trig, 'needed': 'number'}
       ];
       for (let i_trig of varObject_trig) {
-        res_trig = res_trig && typeof i.value == i.needed;
+        res_trig = res_trig && typeof i_trig.value == i_trig.needed;
       };
       return res_trig;
     }()) {
