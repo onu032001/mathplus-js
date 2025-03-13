@@ -1,4 +1,4 @@
-var MathPlus = class MathPlus {
+var MP = class MathPlus {
   integral(f_int, a_int, b_int, n_int) {
     n_int = n_int || 500;
     if (function () {
@@ -195,3 +195,4 @@ var MathPlus = class MathPlus {
     };
   };
 };
+MathPlus = new MP();
