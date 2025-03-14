@@ -205,7 +205,7 @@ var MathPlus = class MathPlus {
         result_function_taylor = 0;
       while (index_function_taylor <= max_index_taylor) {
         result_function_taylor += current_function_taylor(a_taylor) * Math.pow(xs_taylor - a_taylor, index_function_taylor) / factorial_taylor;
-        current_function_taylor = (x_outside_taylor) => d_dx_taylor(current_function_taylor, dx_taylor)(x_outside_taylor);
+        current_function_taylor = (x_outside_taylor) => d_dx_taylor(x_outside_taylor, current_function_taylor, dx_taylor);
         factorial_taylor *= index_function_taylor + 1;
         index_function_taylor += 1;
       }
