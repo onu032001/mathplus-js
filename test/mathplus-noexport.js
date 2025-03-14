@@ -9,7 +9,7 @@ var MathPlus = class MathPlus {
         {'value': b_int, 'needed': 'number'},
         {'value': n_int, 'needed': 'number'},
       ];
-      for (i_int of varObject_int) {
+      for (let i_int of varObject_int) {
         res_int = res_int && typeof (i_int.value) == i_int.needed;
       };
       return res_int;
@@ -37,7 +37,10 @@ var MathPlus = class MathPlus {
       };
       return res_d;
     }()) {
-      return (f_d(a_d + dx_d) - f_d(a_d)) / dx_d;
+      function small_f_d(small_d, value_d) {
+        return (f_d(value_d + small_d) - f_d(value_d)) / small_d;
+      }
+      return small_f_d(dx_d, a_d);
     } else {
       throw 'TypeError: It is not an expression';
     };
@@ -50,7 +53,7 @@ var MathPlus = class MathPlus {
         {'value': a_sum, 'needed': 'number'},
         {'value': b_sum, 'needed': 'number'}
       ];
-      for (i_sum of varObject_sum) {
+      for (let i_sum of varObject_sum) {
         res_sum = res_sum && typeof (i_sum.value) == i_sum.needed;
       };
       return res_sum;
@@ -72,7 +75,7 @@ var MathPlus = class MathPlus {
         {'value': a_prod, 'needed': 'number'},
         {'value': b_prod, 'needed': 'number'}
       ];
-      for (i_prod of varObject_prod) {
+      for (let i_prod of varObject_prod) {
         res_prod = res_prod && typeof (i_prod.value) == i_prod.needed;
       };
       return res_prod;
@@ -158,19 +161,59 @@ var MathPlus = class MathPlus {
         {"value": n_solve, "needed": "number"},
         {"value": dx_solve, "needed": "number"}
       ];
-      for (index_solve of judgeObject_solve) {
+      for (let index_solve of judgeObject_solve) {
         result_solve = result_solve && typeof (index_solve.value) == index_solve.needed;
       };
       return result_solve;
     }()) {
+      function lr_solve(value_lr) {
+        return lhs_solve(value_lr) - rhs_solve(value_lr);
+      }
+      function small_f_solve(small_solve, value_solve) {
+        return (lr_solve(value_solve + small_solve) - lr_solve(value_solve)) / small_solve;
+      }
       for (let k_solve = 0; k_solve < n_solve; k_solve++) {
-        x_solve -= (lhs_solve(x_solve) - rhs_solve(x_solve)) / (((lhs_solve(x_solve + dx_solve) - lhs_solve(x_solve)) - (rhs_solve(x_solve + dx_solve) - rhs_solve(x_solve))) / dx_solve);
+        x_solve -= (lhs_solve(x_solve) - rhs_solve(x_solve)) / (small_f_solve(dx_solve, x_solve));
       };
       return x_solve;
     } else {
       throw new TypeError('It is not an expression');
     };
   };
+  taylor(xs_taylor, expr_taylor, a_taylor, max_index_taylor, dx_taylor) {
+    a_taylor = a_taylor || 0;
+    max_index_taylor = max_index_taylor || 5;
+    dx_taylor = dx_taylor || 9e-8;
+    if (function () {
+      var result_taylor = true;
+      const judgeObject_taylor = [
+        {"value": expr_taylor, "needed": "function"},
+        {"value": max_index_taylor, "needed": "number"},
+        {"value": dx_taylor, "needed": "number"}
+      ];
+      for (let index_taylor of judgeObject_taylor) {
+        result_taylor = result_taylor && typeof (index_taylor.value) == index_taylor.needed;
+      };
+      return result_taylor;
+    }()) {
+      function d_dx_taylor(x_taylor, f_taylor, small_taylor) {
+        return (f_taylor(x_taylor + small_taylor) - f_taylor(x_taylor)) / small_taylor;
+      }
+      let index_function_taylor = 0,
+        current_function_taylor = expr_taylor,
+        factorial_taylor = 1,
+        result_function_taylor = 0;
+      while (index_function_taylor <= max_index_taylor) {
+        result_function_taylor += current_function_taylor(a_taylor) * Math.pow(xs_taylor - a_taylor, index_function_taylor) / factorial_taylor;
+        current_function_taylor = (x_outside_taylor) => d_dx_taylor(current_function_taylor, dx_taylor)(x_outside_taylor);
+        factorial_taylor *= index_function_taylor + 1;
+        index_function_taylor += 1;
+      }
+      return result_function_taylor;
+    } else {
+      throw new TypeError('It is not an expression');
+    }
+  }
   limit(f_limit, x_limit, dx_limit) {
     dx_limit = dx_limit || 9e-8;
     if (function () {
@@ -180,7 +223,7 @@ var MathPlus = class MathPlus {
         {"value": x_limit, "needed": "number"},
         {"value": dx_limit, "needed": "number"}
       ];
-      for (index_limit of judgeObject_limit) {
+      for (let index_limit of judgeObject_limit) {
         result_limit = result_limit && typeof (index_limit.value) == index_limit.needed;
       };
       return result_limit;
@@ -195,3 +238,4 @@ var MathPlus = class MathPlus {
     };
   };
 };
+var MP = new MathPlus();
