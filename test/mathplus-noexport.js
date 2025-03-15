@@ -20,7 +20,7 @@ var MathPlus = class MathPlus {
       };
       return value_int;
     } else {
-      throw 'TypeError: It is not an expression';
+      throw new TypeError('It is not an expression');
     };
   };
   derivative(f_d, a_d, dx_d) {
@@ -37,13 +37,43 @@ var MathPlus = class MathPlus {
       };
       return res_d;
     }()) {
-      function small_f_d(small_d, value_d) {
-        return (f_d(value_d + small_d) - f_d(value_d)) / small_d;
-      }
-      return small_f_d(dx_d, a_d);
+      return (f_d(a_d + dx_d) - f_d(a_d)) / dx_d;
     } else {
-      throw 'TypeError: It is not an expression';
+      throw new TypeError('It is not an expression');
     };
+  };
+  nderivative(f_d, a_d, n_d, dx_d) {
+    function nd_inside(f_d_i, a_d_i, n_d_i, dx_d_i) {
+      function fast_derivative(f_fast_d, a_fast_d) {
+        return (f_fast_d(a_fast_d + dx_d) - f_fast_d(a_fast_d)) / dx_d;
+      };
+      n_d = n_d || 1;
+      dx_d = dx_d || 9e-8;
+      if (function () {
+        var res_d = true;
+        const varObject_d = [
+          {'value': f_d, 'needed': 'function'},
+          {'value': a_d, 'needed': 'number'},
+          {'value': n_d, 'needed': 'number'},
+          {'value': dx_d, 'needed': 'number'}
+        ];
+        for (let i_d of varObject_d) {
+          res_d = res_d && typeof i_d.value == i_d.needed;
+        };
+        return res_d;
+      }()) {
+        if (n_d == 0) {
+          return f_d(a_d);
+        } else {
+          return nd_inside(function (x) {
+            return fast_derivative(f_d, x);
+          }, a_d, n_d-1, dx_d);
+        }
+      } else {
+        throw new TypeError('It is not an expression');
+      };
+    }
+    nd_inside()
   };
   sumf(f_sum, a_sum, b_sum) {
     if (function () {
@@ -64,7 +94,7 @@ var MathPlus = class MathPlus {
       };
       return value_sum;
     } else {
-      throw 'TypeError: It is not an expression';
+      throw new TypeError('It is not an expression');
     };
   };
   prodf(f_prod, a_prod, b_prod) {
@@ -86,7 +116,7 @@ var MathPlus = class MathPlus {
       };
       return value_prod;
     } else {
-      throw 'TypeError: It is not an expression';
+      throw new TypeError('It is not an expression');
     };
   };
   trig(trigf_trig, angle_trig) {
@@ -117,7 +147,7 @@ var MathPlus = class MathPlus {
           return Math[trigf_trig.hyp ? 'atanh' : 'tan'](1 / angle_trig);
       };
     } else {
-      throw 'TypeError: It is not an expression';
+      throw new TypeError('It is not an expression');
     };
   };
   nth_root(value_nth_root, n_nth_root) {
@@ -131,7 +161,7 @@ var MathPlus = class MathPlus {
     }()) {
       return Math.pow(value_nth_root, 1 / n_nth_root);
     } else {
-      throw 'TypeError: It is not an expression';
+      throw new TypeError('It is not an expression');
     };
   };
   log_base(a_log_base, b_log_base) {
@@ -144,7 +174,7 @@ var MathPlus = class MathPlus {
     }()) {
       return Math.log(b_log_base)/Math.log(a_log_base)
     } else {
-      throw 'TypeError: It is not an expression';
+      throw new TypeError('It is not an expression');
     };
   };
   phi = (1 + Math.sqrt(5)) / 2;
@@ -180,7 +210,7 @@ var MathPlus = class MathPlus {
       throw new TypeError('It is not an expression');
     };
   };
-  taylor(xs_taylor, expr_taylor, a_taylor, max_index_taylor, dx_taylor) {
+  taylor(expr_taylor, xs_taylor, a_taylor, max_index_taylor, dx_taylor) {
     a_taylor = a_taylor || 0;
     max_index_taylor = max_index_taylor || 5;
     dx_taylor = dx_taylor || 9e-8;
@@ -196,22 +226,28 @@ var MathPlus = class MathPlus {
       };
       return result_taylor;
     }()) {
-      function function_cascade_taylor(function_taylor, value_taylor, times_taylor) {
-        var sequence_taylor = [];
-        var current_taylor = value_taylor;
-        for (let i = 0; i < times_taylor; i++) {
-          current_taylor = (function_taylor(value_taylor + dx_taylor) - function_taylor(value_taylor)) / dx_taylor;
-        }
-        return current_taylor;
+      function fast_derivative_taylor(function_taylor, value_taylor) {
+        return (function_taylor(value_taylor + dx_taylor) - function_taylor(value_taylor)) / dx_taylor;
       }
-      let index_function_taylor = 0,
+      function fast_nder_taylor(function_taylor, value_taylor, n_taylor) {
+        var result_nder_taylor;
+        if (n_taylor == 0) {
+          result_nder_taylor = function_taylor(value_taylor);
+        } else {
+          result_nder_taylor = fast_nder_taylor(function (value_x_taylor) {
+            return fast_derivative_taylor(function_taylor, value_x_taylor)
+          }, value_taylor, n_taylor - 1)
+        }
+        return result_nder_taylor;
+      }
+      var index_function_taylor = 0,
         current_function_taylor = expr_taylor(a_taylor),
         factorial_taylor = 1,
         result_function_taylor = 0;
       while (index_function_taylor <= max_index_taylor) {
-        result_function_taylor += current_function_taylor(a_taylor) * Math.pow(xs_taylor - a_taylor, index_function_taylor) / factorial_taylor;
+        result_function_taylor += current_function_taylor * Math.pow(xs_taylor - a_taylor, index_function_taylor) / factorial_taylor;
         index_function_taylor += 1;
-        current_function_taylor = function_cascade_taylor(expr_taylor, a_taylor, index_function_taylor);
+        current_function_taylor = fast_nder_taylor(expr_taylor, a_taylor, index_function_taylor);
         factorial_taylor *= index_function_taylor;
       }
       return result_function_taylor;
@@ -244,3 +280,6 @@ var MathPlus = class MathPlus {
   };
 };
 var MP = new MathPlus();
+MP.nderivative(function (x) {
+  return 1/3 * Math.pow(x, 3);
+}, 5, 2)
