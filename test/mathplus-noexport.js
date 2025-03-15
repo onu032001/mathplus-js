@@ -196,18 +196,23 @@ var MathPlus = class MathPlus {
       };
       return result_taylor;
     }()) {
-      function d_dx_taylor(x_taylor, f_taylor, small_taylor) {
-        return (f_taylor(x_taylor + small_taylor) - f_taylor(x_taylor)) / small_taylor;
+      function function_cascade_taylor(function_taylor, value_taylor, times_taylor) {
+        var sequence_taylor = [];
+        var current_taylor = value_taylor;
+        for (let i = 0; i < times_taylor; i++) {
+          current_taylor = (function_taylor(value_taylor + dx_taylor) - function_taylor(value_taylor)) / dx_taylor;
+        }
+        return current_taylor;
       }
       let index_function_taylor = 0,
-        current_function_taylor = expr_taylor,
+        current_function_taylor = expr_taylor(a_taylor),
         factorial_taylor = 1,
         result_function_taylor = 0;
       while (index_function_taylor <= max_index_taylor) {
         result_function_taylor += current_function_taylor(a_taylor) * Math.pow(xs_taylor - a_taylor, index_function_taylor) / factorial_taylor;
-        current_function_taylor = (x_outside_taylor) => d_dx_taylor(x_outside_taylor, current_function_taylor, dx_taylor);
-        factorial_taylor *= index_function_taylor + 1;
         index_function_taylor += 1;
+        current_function_taylor = function_cascade_taylor(expr_taylor, a_taylor, index_function_taylor);
+        factorial_taylor *= index_function_taylor;
       }
       return result_function_taylor;
     } else {
