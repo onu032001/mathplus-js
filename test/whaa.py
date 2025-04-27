@@ -155,7 +155,7 @@ class MathPlus:
         else:
             this.expressionError()
     
-    phi = (self, 1 + math.sqrt(5)) / 2
+    phi = (1 + math.sqrt(5)) / 2
 
     def solve(self, lhs_solve, rhs_solve, x_solve = 0.5, n_solve = 500, dx_solve = 1e-6):
         def temp_MathPlus():
@@ -182,7 +182,11 @@ class MathPlus:
         else:
             this.expressionError()
     
-    def taylor(self, expr_taylor, value_taylor, initial_taylor = 0, max_index_taylor = 5, dx_taylor):
+    def taylor(self, expr_taylor, value_taylor, initial_taylor, max_index_taylor, dx_taylor):
+        if initial_taylor == None:
+            initial_taylor = 0
+        if max_index_taylor == None:
+            max_index_taylor = 5
         if dx_taylor == None:
             dx_taylor = 1e-6 * 10 ** max_index_taylor
         
@@ -239,6 +243,7 @@ class MathPlus:
             return index_limit
         
         if temp_MathPlus():
+            limresult_limit = f_limit(x_limit)
             if math.isnan(limresult_limit) or math.isinf(limresult_limit):
                 limresult_limit = (
                     self.taylor(f_limit, x_limit, x_limit + dx_limit, 10) +
