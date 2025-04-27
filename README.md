@@ -13,7 +13,7 @@ This is a **JS repository** for **additional math functions and constants**.
 |`nth_root(value, n)`|This function calculates nth roots. Represents $\\sqrt\[n\]{\\text{value}}$.|`value`, `n`: Desired value.|
 |`log_base(a,b)`|This function calculates logarithms. Represents $\\log_a b$.|`a`: Base, `b`: Argument.|
 |`phi`|This constant returns the golden ratio. Represents $\\phi = \\frac{1+\\sqrt{5}}{2}$.|-|
-|`solve(lhs,rhs,x,n,dx)`|This function solves equations. Represents $\\text{lhs} = \\text{rhs}$.|`lhs, rhs`: Function to solve.<br/>`x`: Deafult value. Deafult is `0`.<br/>`n`: Entries. Default is `500`.<br/>`dx`: Small value *(Epsilon or Delta x)*. Default is `1e-6` (or $1 \\times 10^{-6}$).|
+|`solve(lhs,rhs,x,n,dx)`|This function solves equations. Represents $\\text{lhs} = \\text{rhs}$.|`lhs, rhs`: Function to solve.<br/>`x`: Deafult value. Deafult is `0.5` (or $\frac{1}{2}$).<br/>`n`: Entries. Default is `500`.<br/>`dx`: Small value *(Epsilon or Delta x)*. Default is `1e-6` (or $1 \\times 10^{-6}$).|
 |`taylor(f,x,a,max,dx)`|This function converts the function to taylor series.|`f`: Function.<br/>`x`: Desired value.<br/>`a`: Initial value.<br/>`max`: Maximum index.<br/>`dx`: Small value *(Epsilon or Delta x)*. Default is `1e-6` (or $1 \\times 10^{-6}$).|
 |`limit(f,a)`|This function calculates limits. Represents $\\lim\\limits_{x \\to a} f(x)$.|`f`: Function to calculate limit.<br/>`a`: Value.|
 
