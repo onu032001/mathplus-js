@@ -191,7 +191,8 @@ class MathPlus:
                 result_reduce = array_reduce[0]
                 if len(array_reduce) > 1:
                     for index_reduce in range(1, len(array_reduce)):
-                        result_reduce = function_reduce
+                        result_reduce = function_reduce(result_reduce, array_reduce[index_reduce], index_reduce)
+                return result_reduce
             else:
                 return None
 
@@ -206,7 +207,7 @@ class MathPlus:
                 {"value": dx_taylor, "needed": [int, float]}
             ]
             for index_taylor in judgeObject_taylor:
-                result_taylor = result_taylor amd type(index_taylor['value']) in index_taylor['needed']
+                result_taylor = result_taylor and type(index_taylor['value']) in index_taylor['needed']
             return result_taylor
     
         if temp_MathPlus():
@@ -220,14 +221,24 @@ class MathPlus:
                 resultf_taylor.append(current_taylor(initial_taylor) / self.factorial(index1_taylor))
                 current_taylor = fd_taylor(current_taylor)
 
-            return sum(before_taylor + after_taylor * ((value_taylor - initial_taylor) ** i_taylor)
-                       for i_taylor, (before_taylor, after_taylor) in enumerate(zip([0] + resultf_taylor[:-1], resultf_taylor)))
+            return reduce(lambda resultf_taylor, before_taylor, after_taylot, i_taylor: before_taylor + after_taylor * (value_taylor - initial_taylor) ** i_taylor)
         else:
             self.expressionError()
 
-    def limit(self, f_limit, x_limit, dx_limit=1e-6):
-        if callable(f_limit) and isinstance(x_limit, (int, float)) and isinstance(dx_limit, (int, float)):
-            limresult_limit = f_limit(x_limit)
+    def limit(self, f_limit, x_limit, dx_limit = 1e-6):
+        def temp_MathPlus():
+            function = type(lambda: None)
+            result_limit = True
+            judgeObject_limit = [
+                {"value": f_limit, "needed": [function]},
+                {"value": x_limit, "needed": [int, float]},
+                {"value": dx_limit, "needed": [int, float]}
+            ]
+            for index_limit in judgeObject_limit:
+                result_limit = result_limit and type(index_limit['value']) in index_limit['needed']
+            return index_limit
+        
+        if temp_MathPlus():
             if math.isnan(limresult_limit) or math.isinf(limresult_limit):
                 limresult_limit = (
                     self.taylor(f_limit, x_limit, x_limit + dx_limit, 10) +
@@ -236,6 +247,5 @@ class MathPlus:
             return limresult_limit
         else:
             self.expressionError()
-
-
+    
 MP = MathPlus()

@@ -244,7 +244,7 @@ var MathPlus = class MathPlus {
       return result_limit;
     }()) {
       var limresult_limit = f_limit(x_limit);
-      if (isNaN(limresult_limit) || limresult_limit == Infinity || limresult_limit == -Infinity) {
+      if (isNaN(limresult_limit) || Math.abs(limresult_limit) == Infinity) {
         limresult_limit = (
           this.taylor(f_limit, x_limit, x_limit + dx_limit, 10) +
           this.taylor(f_limit, x_limit, x_limit - dx_limit, 10)
