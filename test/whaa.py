@@ -1,3 +1,5 @@
+import math
+
 class MathPlus:
     def expressionError():
         raise TypeError('It is not an expression')
@@ -29,8 +31,26 @@ class MathPlus:
                 value_int = 0
                 for k_int in range(0, n_int + 1):
                     value_int += f_int(a_int + (b_int - a_int) / n_int * k_int) * ((b_int - a_int) / n_int)
-                return value_int
+                return math.floor(value_int * n_int) / n_int
             else:
                 self.expressionError()
+        else:
+            self.expressionError()
+    
+    def derivative(f_d, a_d, dx_d = 1e-6) {
+        def temp_MathPlus():
+            function = type(lambda: None)
+            res_d = True
+            varObject_d = [
+                {'value': f_d, 'needed': 'function'},
+                {'value': a_d, 'needed': 'number'},
+                {'value': dx_d, 'needed': 'number'}
+            ]
+            for i_d in varObject_d:
+                res_d = res_d and type(i_d['value']) in i_d['needed']
+            return res_d
+        if temp_MathPlus():
+            
+    }
 
 MP = MathPlus()

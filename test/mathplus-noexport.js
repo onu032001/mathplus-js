@@ -35,7 +35,7 @@ var MathPlus = class MathPlus {
         for (let k_int = 0; k_int <= n_int; k_int += 1) {
           value_int += f_int(a_int + (b_int - a_int) / n_int * k_int) * ((b_int - a_int) / n_int);
         };
-        return value_int;
+        return Math.floor(value_int * n_int) / n_int;
       } else {
         this.expressionError();
       }
