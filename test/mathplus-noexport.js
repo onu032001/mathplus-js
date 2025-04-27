@@ -73,7 +73,7 @@ var MathPlus = class MathPlus {
       for (let i_sum of varObject_sum) {
         res_sum = res_sum && typeof (i_sum.value) == i_sum.needed;
       };
-      return res_sum;
+      return res_sum && a_sum <= b_sum;
     }()) {
       var value_sum = 0;
       for (let k_sum = a_sum; k_sum <= b_sum; k_sum += 1) {
@@ -95,7 +95,7 @@ var MathPlus = class MathPlus {
       for (let i_prod of varObject_prod) {
         res_prod = res_prod && typeof (i_prod.value) == i_prod.needed;
       };
-      return res_prod;
+      return res_prod && a_prod <= b_prod;
     }()) {
       var value_prod = 1;
       for (let k_prod = a_prod; k_prod <= b_prod; k_prod += 1) {
