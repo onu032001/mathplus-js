@@ -1,4 +1,7 @@
 var MathPlus = class MathPlus {
+  expressionError() {
+    throw new TypeError('It is not an expression')
+  }
   factorial(value_fact) {
     if (typeof value_fact == 'number') {
       if (value_fact == 0) {
@@ -6,10 +9,10 @@ var MathPlus = class MathPlus {
       } else if (value_fact - value_fact % 1 == value_fact && value_fact > 0) {
         return value_fact * this.factorial(value_fact - 1);
       } else {
-        throw new TypeError('It is not an expression');
+        this.expressionError();
       }
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     }
   }
   integral(f_int, a_int, b_int, n_int) {
@@ -27,13 +30,17 @@ var MathPlus = class MathPlus {
       };
       return res_int;
     }()) {
-      var value_int = 0;
-      for (let k_int = 0; k_int <= n_int; k_int += 1) {
-        value_int += f_int(a_int + (b_int - a_int) / n_int * k_int) * ((b_int - a_int) / n_int);
-      };
-      return value_int;
+      if (n_int > 0) {
+        var value_int = 0;
+        for (let k_int = 0; k_int <= n_int; k_int += 1) {
+          value_int += f_int(a_int + (b_int - a_int) / n_int * k_int) * ((b_int - a_int) / n_int);
+        };
+        return value_int;
+      } else {
+        this.expressionError();
+      }
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   derivative(f_d, a_d, dx_d) {
@@ -52,7 +59,7 @@ var MathPlus = class MathPlus {
     }()) {
       return (f_d(a_d + dx_d) - f_d(a_d)) / dx_d;
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   sumf(f_sum, a_sum, b_sum) {
@@ -74,7 +81,7 @@ var MathPlus = class MathPlus {
       };
       return value_sum;
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   prodf(f_prod, a_prod, b_prod) {
@@ -96,7 +103,7 @@ var MathPlus = class MathPlus {
       };
       return value_prod;
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   trig(trigf_trig, angle_trig) {
@@ -127,7 +134,7 @@ var MathPlus = class MathPlus {
           return Math[trigf_trig.hyp ? 'atanh' : 'tan'](1 / angle_trig);
       };
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   nth_root(value_nth_root, n_nth_root) {
@@ -141,7 +148,7 @@ var MathPlus = class MathPlus {
     }()) {
       return Math.pow(value_nth_root, 1 / n_nth_root);
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   log_base(a_log_base, b_log_base) {
@@ -154,7 +161,7 @@ var MathPlus = class MathPlus {
     }()) {
       return Math.log(b_log_base)/Math.log(a_log_base)
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   phi = (1 + Math.sqrt(5)) / 2;
@@ -187,7 +194,7 @@ var MathPlus = class MathPlus {
       };
       return x_solve;
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
   taylor(expr_taylor, value_taylor, initial_taylor, max_index_taylor, dx_taylor) {
@@ -219,7 +226,7 @@ var MathPlus = class MathPlus {
       }
       return resultf_taylor.reduce((before_taylor, after_taylor, i_taylor) => before_taylor + after_taylor * Math.pow(value_taylor - initial_taylor, i_taylor));
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     }
   }
   limit(f_limit, x_limit, dx_limit) {
@@ -245,7 +252,7 @@ var MathPlus = class MathPlus {
       }
       return limresult_limit;
     } else {
-      throw new TypeError('It is not an expression');
+      this.expressionError();
     };
   };
 };
