@@ -175,7 +175,7 @@ class MathPlus:
             def lr_solve(value_lr):
                 return lhs_solve(value_lr) - rhs_solve(value_lr)
             def small_f_solve(small_solve, value_solve):
-                return (lr_solve(value_solve + small_solve) - lr_solve(value_solve)) / (small_f_solve(dx_solve, x_solve))
+                return (lr_solve(value_solve + small_solve) - lr_solve(value_solve)) / small_solve
             for k in range(n_solve):
                 x_solve -= (lhs_solve(x_solve)- rhs_solve(x_solve)) / (small_f_solve(dx_solve, x_solve))
             return x_solve
