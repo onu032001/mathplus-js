@@ -3,7 +3,7 @@ var MathPlus = class MathPlus {
     if (typeof value_fact == 'number') {
       if (value_fact == 0) {
         return 1;
-      } else if (value_fact - value_fact % 1 == value_fact) {
+      } else if (value_fact - value_fact % 1 == value_fact && value_fact > 0) {
         return value_fact * this.factorial(value_fact - 1);
       } else {
         throw new TypeError('It is not an expression');
