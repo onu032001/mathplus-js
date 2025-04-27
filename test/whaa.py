@@ -1,6 +1,6 @@
 class MathPlus:
     def expressionError():
-        throw new R
+        raise TypeError('It is not an expression')
 
     def factorial(self, value_fact):
         if type(value_fact) == int:
@@ -9,7 +9,7 @@ class MathPlus:
             elif value_fact - value_fact % 1 == value_fact and value_fact > 0:
                 return value_fact * self.factorial(value_fact - 1)
         else:
-            raise TypeError('It is not an expression')
+            self.expressionError()
     
     def integral(self, f_int, a_int, b_int, n_int = 500):
         def temp_MathPlus():
@@ -27,4 +27,10 @@ class MathPlus:
         if temp_MathPlus():
             if n_int > 0:
                 value_int = 0
-                
+                for k_int in range(0, n_int + 1):
+                    value_int += f_int(a_int + (b_int - a_int) / n_int * k_int) * ((b_int - a_int) / n_int)
+                return value_int
+            else:
+                self.expressionError()
+
+MP = MathPlus()
