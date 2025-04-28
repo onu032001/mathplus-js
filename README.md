@@ -23,5 +23,6 @@ This is a **JS repository** for **additional math functions and constants**.
 ## ETC
 
 ~~README.md file is so weird. *(Not that weird.)*~~
+~~My Samsung~~
 
 Something is **wrong** with this site. Please **don't fork** this repository until I fix the error.
