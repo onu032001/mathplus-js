@@ -16,15 +16,17 @@
 	<body>
 		<h1>Code Compiler - mathplus-js</h1>
 		<span id="code"></span>
-		<button onclick="act()">go go go</button>
+		<button onclick="runCode()">Compile</button>
+		<button onclick="clear()">Reset</button>
 		<p id="result"></p>
 		<script>
 			const {EditorState, Text} = CM["@codemirror/state"];
 			const {EditorView, basicSetup} = CM["codemirror"];
 			const {javascript} = CM["@codemirror/lang-javascript"];
+			const {indentWithTab} = CM["@codemirror/commands"];
 			
 			let editState = EditorState.create({
-			  extensions: [basicSetup, javascript()],
+			  extensions: [basicSetup, keymap.of([indentWithTab]), javascript()],
 			})
 			
 			var editor = new EditorView({
@@ -32,7 +34,7 @@
 			  parent: document.querySelector('#code')
 			});
 			
-			function act() {
+			function runCode() {
 				const input = editor.state.doc.toString();
 				const resultp = document.querySelector('#result');
 				try {
@@ -44,6 +46,19 @@
 					for (let myIndex of [myBr, errorNode]) {
 						resultp.appendChild(myIndex);
 					};
+				};
+			};
+
+			function clear() {
+				var a = confirm('Are you sure about that?');
+				if (a) {
+					editor1.dispatch({
+						changes: {
+							from: 0,
+							to: editor1.state.doc.toString().length,
+							insert:''
+						}
+					});
 				};
 			};
 		</script>
