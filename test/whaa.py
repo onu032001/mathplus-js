@@ -17,7 +17,6 @@ class MathPlus:
             self.expressionError()
     
     def integral(self, f_int, a_int, b_int, n_int = 500):
-
         def temp_MathPlus():
             function = type(lambda: None)
             res_int = True
@@ -140,7 +139,7 @@ class MathPlus:
                 res_nth_root = res_nth_root and type(i_nth_root) in [int, float]
             return res_nth_root
         if temp_MathPlus():
-            return value_nath_root ** (1 / n_nth_root)
+            return value_nth_root ** (1 / n_nth_root)
         else:
             this.expressionError()
     
