@@ -57,23 +57,23 @@ class MathPlus:
         else:
             self.expressionError
     
-    def prodf(self, f_prod, a_prod, b_prod):
+    def sumf(self, f_sum, a_sum, b_sum):
         def temp_MathPlus():
             function = type(lambda: None)
-            res_prod = True
-            varObject_prod = [
-                {'value': f_prod, 'needed': [function]},
-                {'value': a_prod, 'needed': [int]},
-                {'value': b_prod, 'needed': [int]}
+            res_sum = True
+            varObject_sum = [
+                {'value': f_sum, 'needed': [function]},
+                {'value': a_sum, 'needed': [int]},
+                {'value': b_sum, 'needed': [int]}
             ]
-            for i_prod in varObject_prod:
-                res_prod = res_prod and type(i_prod['value']) in i_prod['needed']
-            return res_prod and a_prod <= b_prod
+            for i_sum in varObject_sum:
+                res_sum = res_sum and type(i_sum['value']) in i_sum['needed']
+            return res_sum and a_sum <= b_sum
         if temp_MathPlus():
-            value_prod = 0
-            for k_prod in range(a_prod, b_prod + 1):
-                value_prod += f_prod(k_prod)
-            return value_prod
+            value_sum = 0
+            for k_sum in range(a_sum, b_sum + 1):
+                value_sum += f_sum(k_sum)
+            return value_sum
         else:
             this.expressionError()
     
@@ -99,11 +99,14 @@ class MathPlus:
     
     def trig(self, trigf_trig, angle_trig):
         import math
-        try:
-            trigf_trig['hyp']
-        except:
-            trigf_trig['hyp'] = False
         def temp_MathPlus():
+            try:
+                return trigf_trig['hyp']
+            except:
+                trigf_trig['hyp'] = False
+                return None
+        temp_MathPlus()
+        def temp1_MathPlus():
             res_trig = True
             varObject_trig = [
                 {'value': trigf_trig, 'needed': [dict]},
@@ -114,23 +117,23 @@ class MathPlus:
             return res_trig
         def temp2_MathPlus(withHyp_trig, withoutHyp_trig):
             if trigf_trig['hyp']:
-                return eval(f'math.{withHyp_trig}')
+                return eval('math.'+withHyp_trig)
             else:
-                return eval(f'math.{withoutHyp_trig}')
-        if temp_MathPlus():
-            match trigf_trig['trig']:
-                case 'sec':
-                    return 1 / temp2_MathPlus('cosh', 'cos')(angle_trig)
-                case 'csc':
-                    return 1 / temp2_MathPlus('sinh', 'sin')(angle_trig)
-                case 'cot':
-                    return 1 / temp2_MathPlus('coth', 'cot')(angle_trig)
-                case 'asec':
-                    return temp2_MathPlus('acosh', 'acos')(1 / angle_trig)
-                case 'acsc':
-                    return temp2_MathPlus('asinh', 'asin')(1 / angle_trig)
-                case 'acot':
-                    return temp2_MathPlus('acoth', 'acot')(1 / angle_trig)
+                return eval('math'+withoutHyp_trig)
+        if temp1_MathPlus():
+            match_item = trigf_trig['trig']
+            if match_item == 'sec':
+                return 1 / temp2_MathPlus('cosh', 'cos')(angle_trig)
+            elif match_item == 'csc':
+                return 1 / temp2_MathPlus('sinh', 'sin')(angle_trig)
+            elif match_item == 'cot':
+                return 1 / temp2_MathPlus('coth', 'cot')(angle_trig)
+            elif match_item == 'asec':
+                return temp2_MathPlus('acosh', 'acos')(1 / angle_trig)
+            elif match_item == 'acsc':
+                return temp2_MathPlus('asinh', 'asin')(1 / angle_trig)
+            elif match_item == 'acot':
+                return temp2_MathPlus('acoth', 'acot')(1 / angle_trig)
     
     def nth_root(self, value_nth_root, n_nth_root = 2):
         def temp_MathPlus():
