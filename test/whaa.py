@@ -125,7 +125,7 @@ class MathPlus:
                     return 1 / temp2_MathPlus('sinh', 'sin')(angle_trig)
                 case 'cot':
                     return 1 / temp2_MathPlus('coth', 'cot')(angle_trig)
-                case 'asrc':
+                case 'asec':
                     return temp2_MathPlus('acosh', 'acos')(1 / angle_trig)
                 case 'acsc':
                     return temp2_MathPlus('asinh', 'asin')(1 / angle_trig)
@@ -141,7 +141,7 @@ class MathPlus:
         if temp_MathPlus():
             return value_nth_root ** (1 / n_nth_root)
         else:
-            this.expressionError()
+            self.expressionError()
     
     def log_base(a_log_base, b_log_base):
         def temp_MathPlus():
