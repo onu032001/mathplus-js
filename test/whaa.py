@@ -55,7 +55,7 @@ class MathPlus:
         if temp_MathPlus():
             return (f_d(a_d + dx_d) - f_d(a_d)) / dx_d
         else:
-            self.expressionError
+            self.expressionError()
     
     def sumf(self, f_sum, a_sum, b_sum):
         def temp_MathPlus():
