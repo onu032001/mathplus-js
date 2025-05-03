@@ -142,7 +142,22 @@ class MathPlus:
                 res_nth_root = res_nth_root and type(i_nth_root) in [int, float]
             return res_nth_root
         if temp_MathPlus():
+            if n_nth_root % 2 == 1 and value_nth_root < 0:
+                return -(-value_nth_root) ** (1 / n_nth_root)
+            if n_nth_root % 1 != 0 and value_nth_root < 0:
+                self.expressionError()
             return value_nth_root ** (1 / n_nth_root)
+        else:
+            self.expressionError()
+    
+    def nth_root_complex(self, value_nth_root, n_nth_root = 2):
+        def temp_MathPlus():
+            res_nth_root = True
+            for i_nth_root in [value_nth_root, n_nth_root]:
+                res_nth_root = res_nth_root and type(i_nth_root) in [int, float]
+            return res_nth_root
+        if temp_MathPlus():
+            (value_nth_root) ** (1 / n_nth_root)
         else:
             self.expressionError()
     
