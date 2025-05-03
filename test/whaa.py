@@ -40,7 +40,7 @@ class MathPlus:
         else:
             self.expressionError()
     
-    def derivative(self, f_d, a_d, dx_d = 1e-6):
+    def derivative(self, f_d, dx_d = 1e-6):
         def temp_MathPlus():
             function = type(lambda: None)
             res_d = True
@@ -53,7 +53,7 @@ class MathPlus:
                 res_d = res_d and type(i_d['value']) in i_d['needed']
             return res_d
         if temp_MathPlus():
-            return (f_d(a_d + dx_d) - f_d(a_d)) / dx_d
+            return lambda a_d: (f_d(a_d + dx_d) - f_d(a_d)) / dx_d
         else:
             self.expressionError()
     
@@ -97,7 +97,7 @@ class MathPlus:
         else:
             this.expressionError()
     
-    def trig(self, trigf_trig, angle_trig):
+    def trig(self, trigf_trig):
         import math
         def temp_MathPlus():
             try:
@@ -120,20 +120,25 @@ class MathPlus:
                 return eval('math.'+withHyp_trig)
             else:
                 return eval('math'+withoutHyp_trig)
+        
         if temp1_MathPlus():
-            match_item = trigf_trig['trig']
-            if match_item == 'sec':
-                return 1 / temp2_MathPlus('cosh', 'cos')(angle_trig)
-            elif match_item == 'csc':
-                return 1 / temp2_MathPlus('sinh', 'sin')(angle_trig)
-            elif match_item == 'cot':
-                return 1 / temp2_MathPlus('coth', 'cot')(angle_trig)
-            elif match_item == 'asec':
-                return temp2_MathPlus('acosh', 'acos')(1 / angle_trig)
-            elif match_item == 'acsc':
-                return temp2_MathPlus('asinh', 'asin')(1 / angle_trig)
-            elif match_item == 'acot':
-                return temp2_MathPlus('acoth', 'acot')(1 / angle_trig)
+            def temp3_MathPlus(angle_trig):
+                match_item = trigf_trig['trig']
+                if match_item == 'sec':
+                    return 1 / temp2_MathPlus('cosh', 'cos')(angle_trig)
+                elif match_item == 'csc':
+                    return 1 / temp2_MathPlus('sinh', 'sin')(angle_trig)
+                elif match_item == 'cot':
+                    return 1 / temp2_MathPlus('tanh', 'tan')(angle_trig)
+                elif match_item == 'asec':
+                    return temp2_MathPlus('acosh', 'acos')(1 / angle_trig)
+                elif match_item == 'acsc':
+                    return temp2_MathPlus('asinh', 'asin')(1 / angle_trig)
+                elif match_item == 'acot':
+                    return temp2_MathPlus('atanh', 'atan')(1 / angle_trig)
+            return temp3_MathPlus
+        else:
+            self.expressionError()
     
     def nth_root(self, value_nth_root, n_nth_root = 2):
         def temp_MathPlus():

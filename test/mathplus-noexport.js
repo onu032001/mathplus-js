@@ -43,7 +43,7 @@ var MathPlus = class MathPlus {
       this.expressionError();
     };
   };
-  derivative(f_d, a_d, dx_d) {
+  derivative(f_d, dx_d) {
     dx_d = dx_d || 1e-6;
     if (function () {
       var res_d = true;
@@ -57,7 +57,7 @@ var MathPlus = class MathPlus {
       };
       return res_d;
     }()) {
-      return (f_d(a_d + dx_d) - f_d(a_d)) / dx_d;
+      return (a_d) => (f_d(a_d + dx_d) - f_d(a_d)) / dx_d;
     } else {
       this.expressionError();
     };
@@ -106,7 +106,7 @@ var MathPlus = class MathPlus {
       this.expressionError();
     };
   };
-  trig(trigf_trig, angle_trig) {
+  trig(trigf_trig) {
     trigf_trig.hyp = trigf_trig.hyp || false;
     if (function () {
       var res_trig = true;
@@ -119,20 +119,22 @@ var MathPlus = class MathPlus {
       };
       return res_trig;
     }()) {
-      switch (trigf_trig.trig) {
-        case 'sec':
-          return 1 / Math[trigf_trig.hyp ? 'cosh' : 'cos'](angle_trig);
-        case 'csc':
-          return 1 / Math[trigf_trig.hyp ? 'sinh' : 'sin'](angle_trig);
-        case 'cot':
-          return 1 / Math[trigf_trig.hyp ? 'tanh' : 'tan'](angle_trig);
-        case 'asec':
-          return Math[trigf_trig.hyp ? 'acosh' : 'acos'](1 / angle_trig);
-        case 'acsc':
-          return Math[trigf_trig.hyp ? 'asinh' : 'asin'](1 / angle_trig);
-        case 'acot':
-          return Math[trigf_trig.hyp ? 'atanh' : 'tan'](1 / angle_trig);
-      };
+      return function (angle_trig) {
+        switch (trigf_trig.trig) {
+          case 'sec':
+            return 1 / Math[trigf_trig.hyp ? 'cosh' : 'cos'](angle_trig);
+          case 'csc':
+            return 1 / Math[trigf_trig.hyp ? 'sinh' : 'sin'](angle_trig);
+          case 'cot':
+            return 1 / Math[trigf_trig.hyp ? 'tanh' : 'tan'](angle_trig);
+          case 'asec':
+            return Math[trigf_trig.hyp ? 'acosh' : 'acos'](1 / angle_trig);
+          case 'acsc':
+            return Math[trigf_trig.hyp ? 'asinh' : 'asin'](1 / angle_trig);
+          case 'acot':
+            return Math[trigf_trig.hyp ? 'atanh' : 'tan'](1 / angle_trig);
+        };
+      }
     } else {
       this.expressionError();
     };
