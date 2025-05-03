@@ -157,7 +157,7 @@ class MathPlus:
                 res_nth_root = res_nth_root and type(i_nth_root) in [int, float]
             return res_nth_root
         if temp_MathPlus():
-            (value_nth_root) ** (1 / n_nth_root)
+            return (value_nth_root) ** (1 / n_nth_root)
         else:
             self.expressionError()
     
