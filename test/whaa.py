@@ -117,9 +117,9 @@ class MathPlus:
             return res_trig
         def temp2_MathPlus(withHyp_trig, withoutHyp_trig):
             if trigf_trig['hyp']:
-                return eval('math.'+withHyp_trig)
+                return getattr(math, withHyp_trig)
             else:
-                return eval('math'+withoutHyp_trig)
+                return getattr(math, withoutHyp_trig)
         
         if temp1_MathPlus():
             def temp3_MathPlus(angle_trig):
