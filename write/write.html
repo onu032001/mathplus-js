@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://www.wiris.net/demo/editor/editor"></script>
+    <script>
+        var editor;
+        async function waitUntil(expression) {
+            while (!expression()) {
+                await new Promise((resolve) => window.setTimeout(resolve));
+            }
+            return;
+        }
+        async function checkMathML() {
+            var mml = editor.getMathML();
+            var willFailToRender = false, firstFetch, secondFetch;
+            try {
+                firstFetch = await fetch(`https://www.wiris.net/demo/editor/render?mml=${encodeURIComponent(mml)}`);
+                secondFetch = await fetch(`https://www.wiris.net/demo/editor/render?mml=${encodeURIComponent(mml)}&format=svg`);
+            } catch (error) {
+                willFailToRender = true;
+                document.getElementById('previewDiv').style.display = 'none';
+                document.getElementById('errorDivContainer').style.display = 'inline';
+                document.getElementById('errorSpan').innerText = `Error.\nCharacter count: ${`https://www.wiris.net/demo/editor/render?mml=${encodeURIComponent(mml)}`.length}`;
+            } finally {
+                if (!willFailToRender) {
+                    document.getElementById('previewDiv').style.display = 'inline';
+                    document.getElementById('errorDivContainer').style.display = 'none';
+                    document.getElementById('iOSPreview').innerHTML = mml;
+                    document.getElementById('preview').setAttribute("src", `https://www.wiris.net/demo/editor/render?mml=${encodeURIComponent(mml)}`);
+                    document.getElementById('count1').innerText = 'Character count: ' + Number(document.getElementById('preview').getAttribute("src").length);
+                    document.getElementById('svg-preview').setAttribute("src", `https://www.wiris.net/demo/editor/render?mml=${encodeURIComponent(mml)}&format=svg`);
+                    document.getElementById('count2').textContent = 'Character count: ' + Number(document.getElementById('svg-preview').getAttribute("src").length);
+                }
+            }
+        }
+        window.onload = function () {
+            editor = com.wiris.jsEditor.JsEditor.newInstance({});
+            editor.insertInto(document.getElementById('editorContainer'));
+            async function foreverCheck() {
+                var before = editor.getMathML();
+                while (true) {
+                    await waitUntil(() => before !== editor.getMathML());
+                    before = editor.getMathML();
+                    await checkMathML();
+                }
+            }
+            foreverCheck();
+        };
+    </script>
+    <style>
+        div#editorContainer {
+            width: 750px;
+            height: 375px;
+        }
+    </style>
+</head>
+    <body>
+        <div id="editorContainer"></div><br/>
+        <div id="previewDiv">
+            <div style="height: 250px; overflow: scroll;">
+                <span id="iOSPreview">Preview for iOS</span>
+            </div>
+            <div style="height: 250px; overflow: scroll;">
+                <img id="preview" alt="Preview"/>
+            </div><br/>
+            <p id="count1">Character count: 0</p>
+            <div style="height: 250px; overflow: scroll;">
+                <img id="svg-preview" alt="SVG Preview"/>
+            </div><br/>
+            <p id="count2">Character count: 0</p>
+        </div><br/>
+        <div id="errorDivContainer" style="display: none;">
+            <p>
+                <span style="color: red;" id="errorSpan"></span><br/>
+            </p>
+        </div>
+    </body>
+</html>
