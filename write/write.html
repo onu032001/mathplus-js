@@ -34,6 +34,8 @@
             }
         }
         window.onload = function () {
+            if (!(navigator.appVersion.includes('Apple'))) {
+                document.getElementById('ordMathML').style.display = 'none';
             editor = com.wiris.jsEditor.JsEditor.newInstance({});
             editor.insertInto(document.getElementById('editorContainer'));
             async function foreverCheck() {
@@ -57,7 +59,7 @@
     <body>
         <div id="editorContainer"></div><br/>
         <div id="previewDiv">
-            <div style="height: 250px; overflow: scroll;">
+            <div style="height: 250px; overflow: scroll;" id="ordMathML">
                 <span id="iOSPreview">Preview for iOS</span>
             </div>
             <div style="height: 250px; overflow: scroll;">
