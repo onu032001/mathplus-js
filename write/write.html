@@ -36,6 +36,7 @@
         window.onload = function () {
             if (!(navigator.appVersion.includes('Apple'))) {
                 document.getElementById('ordMathML').style.display = 'none';
+            }
             editor = com.wiris.jsEditor.JsEditor.newInstance({});
             editor.insertInto(document.getElementById('editorContainer'));
             async function foreverCheck() {
